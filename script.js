@@ -1,14 +1,14 @@
-/* Индекс слайда по умолчанию */
-let show=1;
-const secondsTimer=3;
+/* Начальная инициализация */
+let show=1; // булево значение кнопки
+const secondsTimer=3;// Задержка между слайдами
 let delay=1;
 let seconds = secondsTimer;
 let slideIndex=1;
 let timer=0;
-
+/* Получение данных из localStorage */
 show = Number(localStorage.getItem("show"));
 slideIndex=Number(localStorage.getItem("slideIndexStorage"));
-
+/* Установка значения кнопки */
 if (!show){
     delay=0;
 }
@@ -18,7 +18,7 @@ if (show){
 }else{
     document.write("ВКЛ")
 }
-
+/* Обработка нажатий */
 const onButton = document.querySelector('#button');
 
 document.addEventListener('keydown', function(e){
@@ -41,7 +41,7 @@ document.addEventListener('keydown', function(e){
 onButton.addEventListener('click', () =>{
     changeButton()
 });
-
+/* Изменение текста кнопки и прокрутки */
 function changeButton(){
     resetTimer()
     if(show) {
@@ -61,14 +61,14 @@ function changeButton(){
 
 showSlides(slideIndex);
 
-/* Функция увеличивает индекс на 1, показывает следующй слайд*/
+/* Следущий слайд*/
 function plusSlide() {
     showSlides(slideIndex += 1);
     resetTimer();
     seconds=secondsTimer+1
 }
 
-/* Функция уменьшяет индекс на 1, показывает предыдущий слайд*/
+/* Предыдущий слайд*/
 function minusSlide() {
     showSlides(slideIndex -= 1);
     resetTimer();
@@ -106,15 +106,15 @@ function showSlides(n) {
 }
 
 resetTimer();
-
+/* Сброс таймера */
 function resetTimer(){
-    clearInterval(timer) //Очистим интервал, это позволит прервать его работу и отменить перелистывание
+    clearInterval(timer) 
     timer = setInterval(function(){
         slideIndex+=delay;
         showSlides(slideIndex);
     },secondsTimer*1000);
 }
-
+/* Таймер */
 setInterval(()=>{
     seconds = seconds - 1;
     if(!seconds){seconds = secondsTimer;}
